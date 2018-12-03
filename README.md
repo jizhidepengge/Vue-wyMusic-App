@@ -13,11 +13,13 @@
 1. 使用了node后台提供的十多个api实现了十多个页面的效果并且实现的数据的交互。
 2. 通过api实现了用户登录，获取歌单，音乐播放，视频播放，音乐控件，歌词滚动，轮播图，图片懒加载，上拉加载，下拉刷新等等的功能。
 ```
+##安装并运行后台
+```
 $ git clone git@github.com:Binaryify/NeteaseCloudMusicApi.git
 $ cd ./NeteaseCloudMusicApi
 $ npm install
 $ node app.js
-
+```
 
 ## 运行项目
 ```
