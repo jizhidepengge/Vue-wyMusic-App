@@ -78,10 +78,8 @@ export default {
   },
   methods: {
     touchstart(e) {
-      console.log('start')
     },
     touchend(e) {
-      console.log('end')
     }
   },
   computed: {

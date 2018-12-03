@@ -73,10 +73,8 @@ export default {
     let time = new Date().getTime()
     this.axios.get('/api/event?timestamp=' + time)
       .then((res) => {
-        console.log(res)
         this.allData = res.data.event
         this.dynData = this.getAllData()
-        // console.log(this.dynData)
         this.$nextTick(() => {
           this.overAjax = true
           this.showLoad = false
@@ -133,9 +131,6 @@ export default {
     }
   },
   methods: {
-    test(jsonStr) {
-      console.log(JSON.parse(jsonStr))
-    },
     getAllData() {
       let res = this.allData.filter((item, index) => {
         return index <= this.showNum

@@ -76,7 +76,6 @@ export default {
             this.$router.push('/home')
           })
           .catch((req) => {
-            console.log(req)
             this.$toast.error('用户名或密码错误')
             this.close()
           })

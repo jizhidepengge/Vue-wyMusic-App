@@ -78,7 +78,6 @@ export default {
         this.listMV = res.data.result
          this.$nextTick(() => {
             let w = this.$refs.mvImgBox[0].offsetWidth
-            console.log(w)
             let arr = [...this.$refs.mvImgBox]
             arr.map((item) => {
               item.style.height = w / 157 * 88 + 'px'
@@ -105,15 +104,6 @@ export default {
       this.$store.dispatch('getCurrentSheel', data.id)
     },
     goRadio(data) {
-      // this.axios.get('/api/dj/detail?rid=' + data.program.radio.id)
-      //   .then((res) => {
-      //     // console.log(res)
-      //   })
-      // this.axios.get('/api/dj/program?limit=40&rid=' + data.program.radio.id)
-      //   .then((res) => {
-      //     console.log(this.currentMusicList)
-      //     console.log(res)
-      //   })
       this.$store.dispatch('getCurrentDjSheel', {id: data.program.radio.id, offset: 0})
         .then(() => {})
     }

@@ -104,7 +104,6 @@ export default {
           this.$refs.box.style.transform = ` scale(${y / 100 + 1})`
         }
         if (h - 92 < -y && !this.navActive) {
-          console.log(h, y)
           this.navActive = true
           this.appBarColor = 'rgba(2,17,27,1)'
         } else if (h - 92 > -y && this.navActive) {

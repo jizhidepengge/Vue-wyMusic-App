@@ -53,7 +53,6 @@ export default {
     if (this.afterStatus) {
       this.$store.dispatch('getSongSheets')
       .then((res) => {
-        console.log(res.data)
         this.dataMySheets = res.data.playlist
       })
     }
@@ -75,11 +74,9 @@ export default {
   },
   watch: {
     afterStatus(newVal) {
-      console.log(newVal)
       if (newVal) {
         this.$store.dispatch('getSongSheets')
         .then((res) => {
-          console.log(res.data)
           this.dataMySheets = res.data.playlist
         })
       }
