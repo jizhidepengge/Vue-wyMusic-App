@@ -254,10 +254,10 @@ export default {
       let touchDir
       if (this.touchMoveX - this.touchStartX > 50) {
         touchDir = 1
-        this.toChangeMusic(1)
+        this.toChangeMusic(-1)
       } else if (this.touchMoveX - this.touchStartX < -50) {
         touchDir = -1
-        this.toChangeMusic(-1)
+        this.toChangeMusic(1)
       }
       if (touchDir === 1) {
         this.$refs.miniBox.style.transform = `translateX(-100%)`
