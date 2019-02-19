@@ -89,7 +89,7 @@
       <CurrentSheel @toPlay='toPlay' v-if='currentSheelShow'></CurrentSheel>
     </transition>
     <transition name='currentSheelShow'>
-      <DjSheel v-if='currentDjSheelShow'></DjSheel>
+      <DjSheel @toPlay='toPlay' v-if='currentDjSheelShow'></DjSheel>
     </transition>
     <Load v-if='isAjax'></Load>
     <audio :src="getAudioSrc" autoplay ref='audio'></audio>
@@ -208,6 +208,7 @@ export default {
       this.$refs.audio.play()
     },
     toPause() {
+      this.$refs.audio.play()
       this.$refs.audio.pause()
     },
     getRandom(arrLength, nowIndex) {
@@ -239,6 +240,7 @@ export default {
         let newIndex = this.getRandom(arrLength, nowIndex)
         this.$store.commit(types.CHANGE_CURRENT_MUSIC_INDEX, newIndex)
       }
+      setTimeout(() => { this.toPlay() }, 100)
     },
     touchStartMini(e) {
       this.touchStartX = e.changedTouches[0].pageX

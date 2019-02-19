@@ -140,6 +140,7 @@ export default {
       this.$store.commit(types.CHANGE_SHEELTYPE, 'music')
       this.$store.commit(types.CHANGE_CURRENT_MUSIC_LIST, this.currentSheel)
       this.$store.commit(types.CHANGE_CURRENT_MUSIC_INDEX, index)
+      setTimeout(() => { this.$emit('toPlay') }, 100)
     },
     handleMusic(item, i) {
       this.bottomSheelData = {...item}

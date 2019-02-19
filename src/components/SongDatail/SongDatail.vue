@@ -139,12 +139,15 @@ export default {
         let newIndex = this.getRandom(arrLength, nowIndex)
         this.$store.commit(types.CHANGE_CURRENT_MUSIC_INDEX, newIndex)
       }
+      setTimeout(() => { this.$emit('toPlay') }, 100)
     },
     beforeSong() {
       this.toChangeMusic(-1)
+      setTimeout(() => { this.$emit('toPlay') }, 100)
     },
     nextSong() {
       this.toChangeMusic(1)
+      setTimeout(() => { this.$emit('toPlay') }, 100)
     },
     changeMCListShow() {
       this.$emit('changeMCListShow')

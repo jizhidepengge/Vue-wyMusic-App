@@ -155,6 +155,7 @@ export default {
       this.$store.commit(types.CHANGE_SHEELTYPE, 'dj')
       this.$store.commit(types.CHANGE_CURRENT_MUSIC_LIST, this.currentDjSheel)
       this.$store.commit(types.CHANGE_CURRENT_MUSIC_INDEX, index)
+      setTimeout(() => { this.$emit('toPlay') }, 100)
     }
   },
   watch: {

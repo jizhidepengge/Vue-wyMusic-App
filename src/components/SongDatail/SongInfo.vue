@@ -27,7 +27,6 @@ export default {
   props: ['isPlaying'],
   data() {
     return {
-      circleDeg: 0,
       activeToLike: false
     }
   },
@@ -35,16 +34,6 @@ export default {
     this.$nextTick(() => {
       this.$refs.circle.style.height = this.$refs.circle.offsetWidth + 'px'
       this.$refs.imgCircle.style.height = this.$refs.imgCircle.offsetWidth + 'px'
-      if (this.isPlaying) {
-        clearInterval(this.circleTimer)
-        this.circleTimer = setInterval(() => {
-          this.circleDeg += 1
-          if (this.circleDeg === 360) {
-            this.circleDeg = 0
-          }
-          this.$refs.circle.style.transform = `translateX(-50%) rotate(${this.circleDeg}deg)`
-        }, 30)
-      }
     })
   },
   updated() {
@@ -60,20 +49,6 @@ export default {
     },
     toggleShowLyr() {
       this.$emit('toggleShowLyr')
-    }
-  },
-  watch: {
-    isPlaying(newVal) {
-      if (newVal) {
-        this.circleTimer = setInterval(() => {
-          this.circleDeg += 1
-          this.$refs.circle.style.transform = `translateX(-50%) rotate(${this.circleDeg}deg)`
-        }, 30)
-      } else {
-        if (this.circleTimer) {
-          clearInterval(this.circleTimer)
-        }
-      }
     }
   },
   computed: {
