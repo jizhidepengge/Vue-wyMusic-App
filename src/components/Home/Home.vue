@@ -240,6 +240,7 @@ export default {
         let newIndex = this.getRandom(arrLength, nowIndex)
         this.$store.commit(types.CHANGE_CURRENT_MUSIC_INDEX, newIndex)
       }
+      // 解决手机不自动播放引起的音乐无法播放
       setTimeout(() => { this.toPlay() }, 100)
     },
     touchStartMini(e) {
