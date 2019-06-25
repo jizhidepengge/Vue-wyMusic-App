@@ -11,10 +11,11 @@
 
 <script>
 import {mapState} from 'vuex'
+import * as urls from '@/api/urls.js'
 export default {
   props: ['songCurrentTime'],
   created() {
-    this.axios.get('/api/lyric?id=' + this.getNowMusicId)
+    this.axios.get(urls.lyric + '?id=' + this.getNowMusicId)
       .then((res) => {
         this.changeLyricData(res)
       })
@@ -80,7 +81,7 @@ export default {
     getNowMusicId(newVal) {
       this.lyricData = []
       this.showIndex = 0
-      this.axios.get('/api/lyric?id=' + this.getNowMusicId)
+      this.axios.get(urls.lyric + '?id=' + this.getNowMusicId)
         .then((res) => {
           this.changeLyricData(res)
         })

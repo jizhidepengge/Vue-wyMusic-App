@@ -33,6 +33,7 @@
 <script>
 import BScroll from 'better-scroll'
 import { mapState } from 'vuex'
+import * as urls from '@/api/urls.js'
 export default {
   created() {
     if (!this.videoArr.length) {
@@ -59,7 +60,7 @@ export default {
       let res = this.videoArr.slice(0, index)
       for (let i = startIndex; i < res.length; i++) {
         let mvid = res[i].id
-        this.axios.get('/api/mv/detail?mvid=' + mvid)
+        this.axios.get(urls.mvDetail + '?mvid=' + mvid)
           .then((resData) => {
             let key = '480'
             let videoUrl = resData.data.data.brs[key]

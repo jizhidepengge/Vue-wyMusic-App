@@ -41,6 +41,7 @@
 import Banner from '@/widget/Banner'
 import LocalLoad from '@/widget/LocalLoad'
 import {mapState} from 'vuex'
+import * as urls from '@/api/urls.js'
 const arrListBtn = [
   {iconSrc: require('../../public/img/syj.png'), iconActSrc: require('../../public/img/syj_active.png'), txt: '私人FM', isActive: false},
   {iconSrc: require('../../public/img/rl.png'), iconActSrc: require('../../public/img/rl_active.png'), txt: '每日推荐', isActive: false},
@@ -49,11 +50,11 @@ const arrListBtn = [
 ]
 export default {
   created() {
-    this.axios.get('api/banner')
+    this.axios.get(urls.banner)
       .then((res) => {
         this.bannerData = res.data.banners
       })
-    this.axios.get('api/personalized/djprogram')
+    this.axios.get(urls.pushDj)
       .then((res) => {
         let obj = {name: '主播电台', dataArr: res.data.result, click: this.goRadio}
         this.listFindData.push(obj)
@@ -61,7 +62,7 @@ export default {
           this.$refs.imgBox.map((item) => {
               item.style.height = item.offsetWidth + 'px'
           })
-          this.axios.get('api/recommend/resource')
+          this.axios.get(urls.pushMusicList)
             .then((res) => {
               let obj = {name: '推荐歌单', dataArr: res.data.recommend, click: this.goSheel}
               this.listFindData.push(obj)
@@ -73,7 +74,7 @@ export default {
             })
         })
       })
-    this.axios.get('api/personalized/mv')
+    this.axios.get(urls.pushMv)
       .then((res) => {
         this.listMV = res.data.result
          this.$nextTick(() => {

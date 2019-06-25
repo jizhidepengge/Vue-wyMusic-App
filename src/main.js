@@ -11,6 +11,7 @@ import axios from 'axios'
 import vueAxios from 'vue-axios'
 import VueLazyload from 'vue-lazyload'
 
+axios.defaults.withCredentials = true
 Vue.use(vueAxios, axios)
 Vue.use(Muse)
 Vue.use(Toast)

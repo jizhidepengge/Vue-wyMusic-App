@@ -1,12 +1,13 @@
 import * as types from './mutation-types'
 import Vue from 'vue'
+import * as urls from '../api/urls.js'
 export default {
   toLogin({commit}, payload) {
     return new Promise((resolve, reject) => {
       let phone = payload.phone
       let password = payload.passwd
       commit(types.CHANGE_AJAX, true)
-      Vue.axios.get('/api/login/cellphone', {params: { phone, password }})
+      Vue.axios.get(urls.login, {params: { phone, password }})
         .then((res) => {
           commit(types.CHANGE_LOGIN_ID, res.data.account.id)
           commit(types.TOGGLE_LOGIN, true)
@@ -14,18 +15,21 @@ export default {
           commit(types.CHANGE_AFTERSSTATUS, true)
           resolve()
         })
-        .catch(() => { reject(new Error('')) })
+        .catch(() => {
+          commit(types.CHANGE_AJAX, false)
+          reject(new Error(''))
+        })
     })
   },
   toLogout({commit}) {
-    Vue.axios.get('/api/logout')
+    Vue.axios.get(urls.logout)
       .then(() => {
         commit(types.TOGGLE_LOGIN, false)
         commit(types.CHANGE_LOGIN_ID, '')
       })
   },
   getUserDetail({state, commit}) {
-    Vue.axios.get('/api/user/detail', {params: { uid: state.loginId }})
+    Vue.axios.get(urls.userDetail, {params: { uid: state.loginId }})
       .then((res) => {
         // console.log(res)
         commit(types.CHANGE_USER_DETAIL, res.data)
@@ -38,7 +42,7 @@ export default {
   getUserStatus({commit}) {
     return new Promise((resolve, reject) => {
       commit(types.CHANGE_AJAX, true)
-      Vue.axios.get('/api/login/status')
+      Vue.axios.get(urls.loginStatus)
         .then((res) => {
           commit(types.TOGGLE_LOGIN, true)
           commit(types.CHANGE_LOGIN_ID, res.data.profile.userId)
@@ -48,6 +52,7 @@ export default {
         })
         .catch(() => {
           commit(types.TOGGLE_LOGIN, false)
+          commit(types.CHANGE_AJAX, false)
           reject(new Error('未登录'))
         })
     })
@@ -58,7 +63,7 @@ export default {
       if (id) {
         userId = id
       }
-      Vue.axios.get('/api/user/playlist', { params: { uid: userId } })
+      Vue.axios.get(urls.playlist, { params: { uid: userId } })
        .then((res) => {
           resolve(res)
        })
@@ -66,7 +71,7 @@ export default {
   },
   getVideoArr({state, commit}) {
     return new Promise((resolve) => {
-      Vue.axios.get('/api/top/mv?limit=100')
+      Vue.axios.get(urls.video)
        .then((res) => {
           commit(types.CHANGE_VIDEOARR, res.data.data)
           resolve()
@@ -74,14 +79,14 @@ export default {
     })
   },
   getStationClass({commit}) {
-    Vue.axios.get('/api/dj/catelist')
+    Vue.axios.get(urls.djList)
       .then((res) => {
         commit(types.ADD_STATION_CLASS, res.data.categories)
       })
   },
   getCurrentSheel({commit}, id) {
     commit(types.CHANGE_AJAX, true)
-    Vue.axios.get('/api/playlist/detail?id=' + id)
+    Vue.axios.get(urls.playListDetail + '?id=' + id)
         .then((res) => {
           let arr = res.data.playlist.tracks.filter((item, index) => {
             return index < 999
@@ -91,13 +96,17 @@ export default {
           commit(types.TOGGLE_CURRENT_SHEEL_SHOW, true)
           commit(types.CHANGE_AJAX, false)
         })
+        .catch(() => {
+          Vue.$toast.error('获取失败')
+          commit(types.CHANGE_AJAX, false)
+        })
   },
   getCurrentDjSheel({state, commit}, playload) {
     return new Promise((resolve) => {
       let rid = playload.id
       let offset = playload.offset
       commit(types.CHANGE_AJAX, true)
-      Vue.axios.get('/api/dj/program', {params: { rid, offset, limit: 40 }})
+      Vue.axios.get(urls.djPro, {params: { rid, offset, limit: 40 }})
         .then((res) => {
           let tracks = res.data.programs
           tracks.map((item) => {
@@ -113,6 +122,10 @@ export default {
           commit(types.CHANGE_AJAX, false)
           commit(types.CHANGE_CURRENT_DJ_SHEEL_SHOW, true)
           resolve()
+        })
+        .catch(() => {
+          Vue.$toast.error('获取失败')
+          commit(types.CHANGE_AJAX, false)
         })
     })
   }

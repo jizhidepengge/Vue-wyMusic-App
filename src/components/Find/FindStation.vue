@@ -49,20 +49,21 @@
 import Banner from '@/widget/Banner'
 import LocalLoad from '@/widget/LocalLoad'
 import {mapState} from 'vuex'
+import * as urls from '@/api/urls.js'
 export default {
   created() {
-    this.axios.get('api/banner')
+    this.axios.get(urls.banner)
       .then((res) => {
         this.bannerData = res.data.banners.reverse()
       })
     if (!this.stationClass.length) {
       this.$store.dispatch('getStationClass')
     }
-    this.axios.get('api/dj/paygift?limit=3&offset=1')
+    this.axios.get(urls.payDj + '?limit=3&offset=1')
       .then((res) => {
         this.shouldPayData = res.data.data.list
       })
-    this.axios.get('api/dj/recommend')
+    this.axios.get(urls.pushDjRecom)
       .then((res) => {
         let arr = res.data.djRadios
         let result = arr.length > 6 ? arr.splice(0, 6) : arr

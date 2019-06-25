@@ -68,10 +68,11 @@
 <script>
 import LocalLoad from '@/widget/LocalLoad'
 import BScroll from 'better-scroll'
+import * as urls from '@/api/urls.js'
 export default {
   mounted() {
     let time = new Date().getTime()
-    this.axios.get('/api/event?timestamp=' + time)
+    this.axios.get(urls.event + '?timestamp=' + time)
       .then((res) => {
         this.allData = res.data.event
         this.dynData = this.getAllData()
@@ -158,7 +159,7 @@ export default {
     refresh() {
       let time = new Date().getTime()
       this.showNum = 10
-      this.axios.get('/api/event?timestamp=' + time)
+      this.axios.get(urls.event + '?timestamp=' + time)
         .then((res) => {
             this.allData = res.data.event
             this.dynData = this.getAllData()
